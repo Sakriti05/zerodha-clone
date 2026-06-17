@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:3002";
+const DASHBOARD_URL = process.env.REACT_APP_DASHBOARD_URL || "http://localhost:3001";
+
 function Signup() {
   const [isLogin, setIsLogin] = useState(true);
 
@@ -30,7 +33,7 @@ function Signup() {
       setLoading(true);
       setMessage("");
 
-      const res = await fetch("http://localhost:3002/signup", {
+      const res = await fetch(`${API_URL}/signup`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -47,7 +50,7 @@ function Signup() {
 
       
       setMessage("Signup successful. Redirecting to dashboard...");
-      window.location.href = `http://localhost:3001/?email=${encodeURIComponent(data.user.email)}`;
+      window.location.href = `${DASHBOARD_URL}/?email=${encodeURIComponent(data.user.email)}`;
 
     } catch (error) {
       setMessage("Unable to connect to backend");
@@ -61,7 +64,7 @@ function Signup() {
       setLoading(true);
       setMessage("");
 
-      const res = await fetch("http://localhost:3002/login", {
+      const res = await fetch(`${API_URL}/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -78,7 +81,7 @@ function Signup() {
 
       
       setMessage("Login successful. Redirecting to dashboard...");
-      window.location.href = `http://localhost:3001/?email=${encodeURIComponent(data.user.email)}`;
+      window.location.href = `${DASHBOARD_URL}/?email=${encodeURIComponent(data.user.email)}`;
     } catch (error) {
       setMessage("Unable to connect to backend");
     } finally {
