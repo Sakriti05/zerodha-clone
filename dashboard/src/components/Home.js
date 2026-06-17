@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import Dashboard from "./Dashboard";
 import TopBar from "./TopBar";
 
-const FRONTEND_URL = process.env.REACT_APP_FRONTEND_URL || "http://localhost:3000";
+const FRONTEND_URL = process.env.REACT_APP_FRONTEND_URL;
 
 function Home() {
   useEffect(() => {
@@ -17,7 +17,7 @@ function Home() {
 
     const user = localStorage.getItem("zerodhaUser");
 
-    if (!user) {
+    if (!user && FRONTEND_URL) {
       window.location.href = `${FRONTEND_URL}/signup`;
     }
   }, []);
@@ -31,4 +31,3 @@ function Home() {
 }
 
 export default Home;
-
