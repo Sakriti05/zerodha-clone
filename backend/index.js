@@ -17,6 +17,11 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
+mongoose
+  .connect(url)
+  .then(() => console.log("DB started!"))
+  .catch((error) => console.error("DB connection failed:", error));
+
 //  app.get("/addHoldings", async (req, res) => {   let tempHoldings = [
 //      {
       
@@ -289,9 +294,10 @@ app.post("/newOrder", async (req, res) => {
   res.send("Order saved!");
 });
 
+if (process.env.NODE_ENV !== "production") {
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
+}
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-  mongoose.connect(url);
-  console.log("DB started!");
-});
+module.exports = app;
